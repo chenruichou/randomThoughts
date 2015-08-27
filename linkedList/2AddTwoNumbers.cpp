@@ -20,6 +20,7 @@ public:
     ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
         int overflowBit = 0;
 	ListNode *out = l1;
+	ListNode *last = NULL;
 	while(l1!=NULL){
 		if(l1->val+l2->val+overflowBit <10){
 			l1->val += l2->val+overflowBit;
@@ -28,11 +29,12 @@ public:
 			l1->val += l2->val+overflowBit-10;
 			overflowBit = 1;
 		}
+		last = l1;
 		l1=l1->next;
 		l2=l2->next;
 	}
 	if(overflowBit==1){
-		l1 = new ListNode(1);
+		last->next = new ListNode(1);
 		overflowBit=0;
 	}
 	return out;
@@ -74,6 +76,5 @@ int main(){
                 curr=curr->next;
         }
         cout << curr->val << endl;
-
 	return 0;
 }
