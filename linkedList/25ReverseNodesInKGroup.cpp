@@ -14,6 +14,8 @@ public:
     ListNode* reverseKGroup(ListNode* head, int k) {
         stack<ListNode *> s;
 	ListNode *curr = head;
+	if(k==1 || head==NULL || head->next==NULL)
+            return head;
 	ListNode *prev = NULL;
 	while(curr!=NULL){
 		s.push(curr);
