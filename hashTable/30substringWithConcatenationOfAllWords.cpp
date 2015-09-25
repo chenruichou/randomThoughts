@@ -23,7 +23,7 @@ public:
 		if(m[testStr]>0){
 			if(isVisited[m[testStr]-1]==1){
 				// already visited
-				isVisited.resize(words.size(),0);
+				isVisited = reset(isVisited);
 				r=0;
 				c++;
 			}else{
@@ -33,16 +33,22 @@ public:
 				if(r==words.size()){
 					out.push_back(c-n*words.size());
 					r=0;
-					isVisited.resize(words.size(),0);
+					isVisited = reset(isVisited);
 				}
 			}
 		}else{
 			c++;
 			r=0;
-			isVisited.resize(words.size(),0);
+			isVisited = reset(isVisited);
 		}
 	}
 	return out;
+    }
+    vector<bool> reset(vector<bool> &isVisited){
+    	for(auto it=isVisited.begin();it!= isVisited.end();it++){
+		*it = 0;
+	}
+	return isVisited;
     }
 };
 
@@ -51,6 +57,7 @@ int main(){
 	string s = "barfoothefoobarman";
 	vector<string> words = {"foo","bar"};
 	vector<int> out = sol.findSubstring(s, words);
+	cout << out.size() << "found!" << endl;
 	for(auto it=out.begin();it!=out.end();it++){
 		cout << *it << " ";
 	}
