@@ -4,23 +4,24 @@ using namespace std;
 class Solution {
 public:
     vector<int> searchRange(vector<int>& nums, int target) {
-    	int left = 0;
-	int right = nums.size()-1;
-	int mid = (left+right)/2;
-	vector<int> out (2,-1); // indice of left and right
-	while(left<right){
-		if(nums[left]==target){
-			out[0] = left;
-		}
-		if(nums[right]==target){
-			out[1] = right;
-		}
-		if(nums[mid]==target)
-		if(out[0]!=-1 && out[1]!=-1) return out;
-		
-		
-	}   
+    	vector<int> out;
+	out.push_back(findLeftMost(nums,target));
+	out.push_back(findRightMost(nums,target));
+    	return out;
     }
+    int findLeftMost(vector<int> &nums, int target){
+	// binary search to find the left-most one
+    	int left=0;
+	int right=nums.size()-1;
+	while(left<right){
+		
+	}	
+    }
+    int findRightMost(vector<int> &nums, int target){
+	// binary search to find the right-most one
+
+    }
+
 };
 
 
