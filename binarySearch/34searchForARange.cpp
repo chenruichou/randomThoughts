@@ -11,15 +11,39 @@ public:
     }
     int findLeftMost(vector<int> &nums, int target){
 	// binary search to find the left-most one
-    	int left=0;
+    	int out=-1;
+	int left=0;
 	int right=nums.size()-1;
-	while(left<right){
-		
-	}	
+	while(left<=right){
+		int mid = (left+right)/2;
+		if(nums[mid]>target){
+			right = mid-1;
+		}else if(nums[mid]<target){
+			left = mid+1;
+		}else{ // nums[mid]==target
+			out = mid;
+			right = mid-1;	
+		}
+	}
+	return out;	
     }
     int findRightMost(vector<int> &nums, int target){
 	// binary search to find the right-most one
-
+	int out=-1;
+	int left=0;
+	int right=nums.size()-1;
+	while(left<=right){
+		int mid = (left+right)/2;
+		if(nums[mid]>target){
+			right = mid - 1;
+		}else if(nums[mid]<target){
+			left = mid + 1;
+		}else{ // nums[mid]==target
+			out = mid;
+			left = mid + 1;
+		}
+	}
+	return out;
     }
 
 };
