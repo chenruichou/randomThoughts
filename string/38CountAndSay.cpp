@@ -8,8 +8,9 @@ public:
 	string countAndSay(int n){
 		string s="1";
 		if(n<1) return "";
+		if(n==1) return "1";
 		int d = 1;
-		while(d<=n){
+		while(d<n){
 			string s_new = "";
 			char prev = s[0];
 			int count = 1;
@@ -42,7 +43,7 @@ public:
 int main(){
 	string s = "1";
 	Solution sol;
-	int n=10;
+	int n=2;
 	sol.countAndSay(n);
 	return 1;
 }
