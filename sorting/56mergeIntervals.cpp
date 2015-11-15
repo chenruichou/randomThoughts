@@ -16,6 +16,10 @@ bool compareInterval(Interval &a, Interval &b) {
 class Solution{
     public:
         vector<Interval> merge(vector<Interval> & intervals){
+            if(intervals.size()==0){
+                vector<Interval> out;
+                return out;  
+            } 
             vector<Interval> out;
             // ***sort by start: need to define a structure 
             sort(intervals.begin(), intervals.end(), compareInterval);
