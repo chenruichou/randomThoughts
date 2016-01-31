@@ -1,5 +1,6 @@
 #include<iostream>
 #include<vector>
+#include<stack>
 using namespace std;
 struct TreeNode{
     int val;
@@ -31,8 +32,32 @@ class Solution {
         }
 };
 
+class Solution2 { // iteration version
+    public:
+        vector<int> inorderTraversal(TreeNode *root){
+            vector<int> out;
+            stack<TreeNode*> s;
+            TreeNode *curr = root;
+            while(curr || !s.empty()){
+                if(!curr){
+                    // no nodes, expand pushed nodes
+                    curr = s.top();
+                    s.pop();
+                    out.push_back(curr->val);
+                    curr = curr->right;
+                }else{
+                    // push nodes
+                    s.push(curr);
+                    curr = curr->left;
+                }
+            }
+            return out;
+        }
+
+};
+
 int main(){
-    Solution sol; 
+    Solution2 sol; 
     TreeNode *root = new TreeNode(1);
     root->right = new TreeNode(2);
     (root->right)->left = new TreeNode(3);
