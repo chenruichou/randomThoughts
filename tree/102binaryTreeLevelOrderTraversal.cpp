@@ -15,6 +15,7 @@ class Solution {
     public:
         vector<vector<int>> levelOrder(TreeNode* root) {
             vector<vector<int>> out;
+            if(!root) return out;
             vector<int> out_cand;
             queue<TreeNode *> q;
             queue<int> l;
@@ -32,9 +33,9 @@ class Solution {
                     curr_level = level;
                 }
                 out_cand.push_back(curr->val);
+                level++;
                 if(curr->left){
                     q.push(curr->left);
-                    level++;
                     l.push(level);
                 }
                 if(curr->right){
@@ -42,6 +43,8 @@ class Solution {
                     l.push(level);
                 }
             }
+            // push for the last layer
+            out.push_back(out_cand);
         return out;
         }
 };
