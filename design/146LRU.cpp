@@ -27,8 +27,10 @@ class LRUCache{
 		if(key2Node.count(key)>0){
 			//hit
 			// move to front
-			key2Node[key]->prev->next = key2Node[key]->next;
-			key2Node[key]->next->prev = key2Node[key]->prev;
+            if(key2Node[key]->prev)
+			    key2Node[key]->prev->next = key2Node[key]->next;
+			if(key2Node[key]->next)
+                key2Node[key]->next->prev = key2Node[key]->prev;
 			key2Node[key]->prev= NULL;
 			key2Node[key]->next = head;
 			head->prev = key2Node[key];
@@ -41,28 +43,40 @@ class LRUCache{
 	}
 
 	void set(int key, int value) {
-		if(key2Node.count(key)>0){
+		//for the first item
+        if(key2Node.size()==0){
+            node *n = new node(key,value);
+            head = n;
+            tail = n;
+        }
+        if(key2Node.count(key)>0){
 			//already exist
 			key2Node[key]->val = value; //update the value
 		}else{
 			// new item
 			if(key2Node.size()<cap){
 				node *n = new node(key,value);
-				n->next = head;
-				head->prev = n;
+				if(head){
+                    n->next = head;
+				    head->prev = n;
+                }
 				head = n;
 				key2Node[key] = n;
 			}else{
 				// full already. need to remove an item from cache
-				delete(tail);
-				tail->prev->next = NULL;
-				tail = tail->prev;
-				key2Node.erase(key);
+				if(tail->prev)
+                    tail->prev->next = NULL;
+				node *tmp = tail;
+                tail = tail->prev;
+				key2Node.erase(tmp->key);
+                delete(tmp);
 
 				// create and node at the begining
 				node *n = new node(key,value);
-				n->next = head;
-				head->prev = n;
+				if(head){
+                    n->next = head;
+				    head->prev = n;
+                }
 				head = n;
 				key2Node[key] = n;
 			}
@@ -72,9 +86,9 @@ class LRUCache{
 
 
 int main(){
-	LRUCache *lru = new LRUCache(3);
+	LRUCache *lru = new LRUCache(1);
 	lru->set(1,1);
 	lru->set(2,2);
-	cout << lru->get(2)<< endl;
+	cout << lru->get(1)<< endl;
 	return 1;
 }
