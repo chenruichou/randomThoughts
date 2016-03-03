@@ -14,17 +14,17 @@ class Solution{
     bool isBalanced(TreeNode *root){
         return getDepth(root)==-1 ? false : true;
     }
-    bool getDepth(TreeNode *root){
+    int getDepth(TreeNode *root){
         if(!root)
             return 0;
-        if(getDepth(root->left)==-1)
+        int depth_left = getDepth(root->left);
+        int depth_right = getDepth(root->right);
+        if(depth_left==-1 || depth_right==-1)
             return -1;
-        if(getDepth(root->right)==-1)
-            return -1;
-        if(abs(getDepth(root->left)-getDepth(root->right))>1)
+        if(abs(depth_left-depth_right)>1)
             return -1;
         else{
-            return max(getDepth(root->left),getDepth(root->right))+1;
+            return max(depth_left,depth_right)+1;
         }
     }
 };
